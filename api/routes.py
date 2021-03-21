@@ -16,7 +16,7 @@ def send_update_email(university = None, body = "", subject = "Confirm update to
    if body:
       msg.body = body
    else:
-      msg.body = f"""The following information has been provided to be updated in the university database:
+      msg.body = """The following information has been provided to be updated in the university database:
 
 University Name: university-name
 Country: university-country
