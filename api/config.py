@@ -27,8 +27,8 @@ class ProductionConfig(BaseConfig):
 
 
 configs = {
-   "development": api.config.DevelopmentConfig,
-   "production": api.config.ProductionConfig
+   "development": DevelopmentConfig,
+   "production": ProductionConfig
 }
 
 def get_config():
