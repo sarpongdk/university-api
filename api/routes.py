@@ -72,7 +72,7 @@ def get_university():
          }), 200
 
 @university_api.route("/university/<public_id>", methods = ["PUT"])
-def update_university():
+def update_university(public_id):
    university = University.query.filter_by(public_id = public_id).first()
    if not university:
       return jsonify({
