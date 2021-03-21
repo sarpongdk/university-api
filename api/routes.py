@@ -55,8 +55,8 @@ def get_university():
 #      univeristies = University.query.filter(University.name.like(f"%{country}%")).all()
 
 #   if not universities:
-    universities = http.get_university(name = name, country = country)
-    for university in universities:
+   universities = http.get_university(name = name, country = country)
+   for university in universities:
       uni = University(name = university.get("name", ""), country = university.get("country", ""))
 
       if university.get('domains'):
