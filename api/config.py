@@ -33,4 +33,4 @@ configs = {
 
 def get_config():
    config_name = os.getenv("FLASK_ENV", "development")
-   return config[config_name]
+   return configs[config_name]
