@@ -16,3 +16,4 @@ class Config:
    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
    MAIL_DEBUG = os.getenv('MAIL_DEBUG', True)
    MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', "zulf.gbede@gmail.com")
+   MAIL_DEFAULT_RECEIVER = os.getenv('MAIL_DEFAULT_RECEIVER', "sarpong.david2@gmail.com")
