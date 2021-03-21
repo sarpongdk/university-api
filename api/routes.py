@@ -32,7 +32,7 @@ To confirm update, click: {url_for('university_api.confirm_update', university=u
    try:
       mail.send(msg)
    except Exception as e:
-      current_app.logger.error(e.message)
+      current_app.logger.error(print(e))
 
 @university_api.route("/university", methods = ["GET"])
 def get_university():
