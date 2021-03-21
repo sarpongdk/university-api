@@ -1,12 +1,13 @@
 from flask import Flask
 
-from api.config import Config
+from api.config import get_config
 from api.extensions import mail, db, cors
 
 import os
 
-def create_app(config_object = Config):
+def create_app():
    app = Flask(__name__)
+   config_object = get_config()
    app.config.from_object(config_object)
 
    db.init_app(app)
