@@ -70,4 +70,4 @@ def hello():
 
 @university_api.route("/confirm_update", methods = ["GET"])
 def confirm_update():
-   print(request.json)
+   return request.json
