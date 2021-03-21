@@ -46,24 +46,24 @@ def get_university():
                'universities': []
             }), 200
 
-   universities = []
-   if name and country:
-      universities = University.query.filter((University.name == name) & (University.country == country))
-   elif name:
-      univeristies = University.query.filter(University.name.like(f"%{name}%")).all()
-   else:
-      univeristies = University.query.filter(University.name.like(f"%{country}%")).all()
+#   universities = []
+#   if name and country:
+#      universities = University.query.filter((University.name == name) & (University.country == country))
+#   elif name:
+#      univeristies = University.query.filter(University.name.like(f"%{name}%")).all()
+#   else:
+#      univeristies = University.query.filter(University.name.like(f"%{country}%")).all()
 
-   if not universities:
-      universities = http.get_university(name = name, country = country)
-      for university in universities:
-         uni = University(name = university.get("name", ""), country = university.get("country", ""))
+#   if not universities:
+    universities = http.get_university(name = name, country = country)
+    for university in universities:
+      uni = University(name = university.get("name", ""), country = university.get("country", ""))
 
-         if university.get('domains'):
-            uni.domain = university.get('domains')[0]
+      if university.get('domains'):
+         uni.domain = university.get('domains')[0]
 
-         if university.get('web_pages'):
-            uni.webpage = university.get('web_pages')[0]
+      if university.get('web_pages'):
+         uni.webpage = university.get('web_pages')[0]
 
    return jsonify({
             'status': 'success',
