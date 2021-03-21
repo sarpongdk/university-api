@@ -2,17 +2,11 @@ from flask import Blueprint, jsonify, request, url_for, current_app
 from flask_mail import Message
 
 from api.extensions import mail, http
-#from api.models import University
+from api.models import University
 
 import os, requests, smtplib
 
 university_api = Blueprint('university_api', __name__)
-
-class University:
-   name = "slu"
-   country = "usa"
-   website = "www.slu.edu"
-   domain = "slu.edu"
 
 
 def send_update_email(university, body = "", subject = "Confirm update to University API"):
@@ -45,9 +39,37 @@ def get_university():
    name = request.args.get("name", "").lower()
    country = request.args.get("country", "").lower()
 
-   print(name, country)
-   universities = http.get_university(name = name, country = country)
-   return jsonify(universities)
+   if not name and not country:
+      return jsonify({
+               'status': 'success',
+               'num_universities': 0,
+               'universities': []
+            }), 200
+
+   universities = []
+   if name and country:
+      universities = University.query.filter((University.name == name) & (University.country == country))
+   elif name:
+      univeristies = University.query.filter(University.name.like(f"%{name}%")).all()
+   else:
+      univeristies = University.query.filter(University.name.like(f"%{country}%")).all()
+
+   if not universities:
+      universities = http.get_university(name = name, country = country)
+      for university in universities:
+         uni = University(name = university.get("name", ""), country = university.get("country", ""))
+
+         if university.get('domains'):
+            uni.domain = university.get('domains')[0]
+
+         if university.get('web_pages'):
+            uni.webpage = university.get('web_pages')[0]
+
+   return jsonify({
+            'status': 'success',
+            'num_universities': len(universities),
+            'universities': universities
+         }), 200
 
 @university_api.route("/university/<public_id>", methods = ["PUT"])
 def update_university():
@@ -60,14 +82,9 @@ def update_university():
 
    send_update_email(university)
 
-@university_api.route("/home")
-@university_api.route("/")
-def hello():
-   university = University()
-   send_update_email(university)
-   return "SLU"
-
-
+"""
 @university_api.route("/confirm_update", methods = ["GET"])
 def confirm_update():
+
    return request.json
+"""

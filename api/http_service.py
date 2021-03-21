@@ -11,7 +11,7 @@ class HTTPService:
       return {
          "name": university.get("name", ""),
          "webpage": university.get("web_pages", []),
-         "domain": university.get("domain", ""),
+         "domain": university.get("domains", ""),
          "country": university.get("country", ""),
          "state_province": university.get("state-province", "")
       }
