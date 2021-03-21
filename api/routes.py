@@ -9,7 +9,7 @@ import os, requests, smtplib
 university_api = Blueprint('university_api', __name__)
 
 
-def send_update_email(university, body = "", subject = "Confirm update to University API"):
+def send_update_email(university = None, body = "", subject = "Confirm update to University API"):
    msg = Message(subject)
    msg.add_recipient(os.getenv("MAIL_DEFAULT_RECEIVER", "sarpong.david2@gmail.com"))
 
@@ -18,10 +18,10 @@ def send_update_email(university, body = "", subject = "Confirm update to Univer
    else:
       msg.body = f"""The following information has been provided to be updated in the university database:
 
-University Name: {university}
-Country: {university}
-Website: {university}
-Domain: {university}
+University Name: university-name
+Country: university-country
+Website: university-webpage
+Domain: university-domain
 
 Please verify the information provided above. 
 
@@ -80,7 +80,7 @@ def update_university(public_id):
 #               'message': f'university with id {public_id} does not exist'
 #            }), 400
 
-   send_update_email(university)
+   send_update_email()
 
 """
 @university_api.route("/confirm_update", methods = ["GET"])
