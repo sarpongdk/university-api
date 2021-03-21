@@ -1,6 +1,6 @@
 import datetime, uuid
 
-from api import db
+from api.extensions import db
 
 def generate_uuid():
    """generate a unique identifier as a string
